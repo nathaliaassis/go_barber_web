@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { FiMail, FiLock, FiUser, FiArrowLeft } from 'react-icons/fi';
 import { Form } from '@unform/web';
+import * as Yup from 'yup';
 
 import Logo from '../../assets/logo.svg';
 
@@ -12,9 +13,25 @@ import Button from '../../components/Button';
 const SignUp: React.FC = () => {
   //void é o retorno da funcao
 
-  function handleSubmit(data: object): void {
-    console.log(data);
-  }
+  const handleSubmit = useCallback(async (data: object) => {
+    try {
+      //quando eu quero validar um objeto inteiro eu crio um schema de validação
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Nome obrigatório'),
+        email: Yup.string()
+          .required('E-mail obrigatório')
+          .email('Digite um e-mail válido'),
+        password: Yup.string().min(6, 'No mínimo 6 dígitos'),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false, //retorna todos os erros de uma vez só e não apenas o primeiro erro que encontrar
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
   return (
     <Container>
       <Background />
