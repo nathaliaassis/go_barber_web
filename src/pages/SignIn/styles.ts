@@ -9,6 +9,17 @@ export const Container = styled.div`
   display: flex;
   align-items: stretch;
 `;
+
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  place-content: center; /*horizontal e vertical no centro*/
+  align-items: center;
+
+  width: 100%;
+  max-width: 700px;
+`;
+
 const appearFromLeft = keyframes`
   from {
     opacity: 0;
@@ -69,15 +80,6 @@ export const AnimationContainer = styled.div`
       color: ${darken(0.1, '#FF9000')};
     }
   }
-`;
-export const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  place-content: center; /*horizontal e vertical no centro*/
-  align-items: center;
-
-  width: 100%;
-  max-width: 700px;
 `;
 export const Background = styled.div`
   flex: 1;
