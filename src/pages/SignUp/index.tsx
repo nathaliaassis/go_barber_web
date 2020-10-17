@@ -12,6 +12,7 @@ import { Container, Content, Background } from './styles';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import { Link } from 'react-router-dom';
 
 const SignUp: React.FC = () => {
   //void é o retorno da funcao
@@ -57,10 +58,10 @@ const SignUp: React.FC = () => {
           />
           <Button type="submit">Cadastrar</Button>
         </Form>
-        <a href="/signIn">
+        <Link to="/">
           <FiArrowLeft />
           Voltar para logon
-        </a>
+        </Link>
       </Content>
     </Container>
   );
