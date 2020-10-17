@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { animated } from 'react-spring';
 
 interface ToastProps {
   type?: 'success' | 'error' | 'info';
@@ -28,7 +29,7 @@ function toastBgColor(type: any) {
   }
 }
 
-export const Container = styled.div<ToastProps>`
+export const Container = styled(animated.div) <ToastProps>`
   position: relative;
   display: flex;
   padding: 16px 30px 16px 16px;
