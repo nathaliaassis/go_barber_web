@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 
 import backgroundSignUp from '../../assets/sign-up-background.png';
-import { shade, darken } from 'polished';
+import { shade } from 'polished';
 
 export const Container = styled.div`
   height: 100vh;

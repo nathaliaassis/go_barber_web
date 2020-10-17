@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useContext } from 'react';
+import React, { useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
@@ -60,7 +60,7 @@ const SignIn: React.FC = () => {
         description: 'Ocorreu um erro ao fazer o login, cheque as credenciais'
       })
     }
-  }, [signIn]);
+  }, [signIn, addToast]);
   return (
     <Container>
       <Content>
