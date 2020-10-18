@@ -17,13 +17,16 @@ const Route: React.FC<RouteProps> = ({
   return (
     <ReactDOMRoute
       {...rest}
-      render={() => {
+      render={({ location }) => {
         return isPrivate === !!user ? (
           <Component />
         ) : (
             //se for uma rota autenticada, irá direcionar ao login,
             //dashboard senão direcionará para o
-            <Redirect to={{ pathname: isPrivate ? '/' : '/dashboard' }} />
+            <Redirect to={{
+              pathname: isPrivate ? '/' : '/dashboard',
+              state: { from: location }
+            }} />
           )
       }}
     />
