@@ -1,7 +1,6 @@
 import React from 'react';
 import { RouteProps as ReactDOMRouterProps, Route as ReactDOMRoute, Redirect } from 'react-router-dom';
 import { useAuth } from '../hooks/AuthContext';
-// import { Container } from './styles';
 
 //extends pega todas as props do Router Props e adiciona as proximas declaradas
 interface RouteProps extends ReactDOMRouterProps {
@@ -14,6 +13,8 @@ const Route: React.FC<RouteProps> = ({
   ...rest
 }) => {
   const { user } = useAuth();
+
+  console.log(user, isPrivate)
   return (
     <ReactDOMRoute
       {...rest}
