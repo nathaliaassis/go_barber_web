@@ -9,7 +9,7 @@ import { useAuth } from '../../hooks/AuthContext';
 
 const Dashboard: React.FC = () => {
 
-  const { signOut } = useAuth();
+  const { user, signOut } = useAuth();
 
   return (
     <Container>
@@ -19,12 +19,12 @@ const Dashboard: React.FC = () => {
 
           <Profile>
             <img
-              src='https://avatars.githubusercontent.com/u/22774348'
-              alt='Nathália Assis'
+              src={user.avatar_url || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwKuR2JotbnJbso-Z_xvuajeDaSV-_x88QQw&usqp=CAU'}
+              alt={user.name}
             />
             <div>
               <span>Bem-vindo (a),</span>
-              <strong>Nathália Assis</strong>
+              <strong>{user.name}</strong>
             </div>
           </Profile>
           <button
