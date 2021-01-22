@@ -27,7 +27,6 @@ const SignIn: React.FC = () => {
   const { addToast } = useToast();
   const history = useHistory();
 
-  console.log(user);
   const formRef = useRef<FormHandles>(null);
   const handleSubmit = useCallback(async (data: SignInData) => {
     try {
