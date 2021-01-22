@@ -23,7 +23,7 @@ interface SignInData {
 
 const SignIn: React.FC = () => {
 
-  const { user, signIn } = useAuth();
+  const { signIn } = useAuth();
   const { addToast } = useToast();
   const history = useHistory();
 
