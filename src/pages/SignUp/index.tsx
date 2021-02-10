@@ -47,7 +47,7 @@ const SignUp: React.FC = () => {
       });
 
       await api.post('users', data);
-      history.push('/signin');
+      history.push('/');
       addToast({
         type: 'success',
         title: 'Cadastro realizado!',
