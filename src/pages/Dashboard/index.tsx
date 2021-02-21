@@ -60,7 +60,7 @@ const Dashboard: React.FC = () => {
     setCurrentMonth(month);
   }, []);
 
-  console.log(appointments);
+  // console.log(appointments);
   useEffect(() => {
     api.get(`/providers/${user.id}/month-availability`, {
       params: {

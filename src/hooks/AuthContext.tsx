@@ -20,6 +20,7 @@ interface AuthContextData {
   user: User;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
+  updateUser(user: User): void;
 }
 const AuthContext = createContext<AuthContextData>(
   {} as AuthContextData,
@@ -60,8 +61,14 @@ export const AuthProvider: React.FC = ({ children }) => {
     setData({} as StorageData);
   }, [])
 
+  const updateUser = useCallback((user: User) => {
+    setData({
+      token: data.token,
+      user
+    });
+  }, [setData, data.token]);
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
+    <AuthContext.Provider value={{ user: data.user, signIn, signOut, updateUser }}>
       {children}
     </AuthContext.Provider>
   );
