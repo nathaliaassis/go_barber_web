@@ -46,7 +46,7 @@ const Dashboard: React.FC = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
   const [monthAvailability, setMonthAvailability] = useState<MonthAvailability[]>([]);
-  const [dayAvailability, setDayAvailability] = useState<Appointment[]>([]);
+  // const [dayAvailability, setDayAvailability] = useState<Appointment[]>([]);
 
   const [appointments, setAppointments] = useState<Appointment[]>([]);
 
