@@ -14,10 +14,11 @@ import { Container, Error } from './styles';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
+  containerStyle?: {};
   icon?: React.ComponentType<IconBaseProps>; // ? significa não obrigatorio
 }
 
-const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
+const Input: React.FC<InputProps> = ({ name, icon: Icon, containerStyle, ...rest }) => {
   //monitorar o input para fazer o registro dos dados
   //o HTMLINputElement indica que esse ref esta armazenado o valor de um input
   const inputRef = useRef<HTMLInputElement>(null);
@@ -47,9 +48,15 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
   }, [fieldName, registerField]);
 
   return (
-    <Container hasError={!!error} isFilled={isFilled} isFocused={isFocused}>
+    <Container
+      hasError={!!error}
+      isFilled={isFilled}
+      isFocused={isFocused}
+      style={containerStyle}
+    >
       {Icon && <Icon size={20} color={error && '#666360'} />}
       <input
+        name={name}
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
         defaultValue={defaultValue}
