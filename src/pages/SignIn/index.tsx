@@ -47,14 +47,15 @@ const SignIn: React.FC = () => {
         email: data.email,
         password: data.password
       });
-      console.log('bateu antes');
+
       history.push('/dashboard');
-      console.log('bateu depois');
+
     } catch (err) {
+      console.log('test')
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
         formRef.current?.setErrors(errors);
-        console.log('deu erro');
+
         return;
       }
       addToast({
