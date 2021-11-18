@@ -1,5 +1,5 @@
 import React, { useRef, useCallback } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
@@ -47,13 +47,14 @@ const SignIn: React.FC = () => {
         email: data.email,
         password: data.password
       });
-
+      console.log('bateu antes');
       history.push('/dashboard');
+      console.log('bateu depois');
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
         formRef.current?.setErrors(errors);
-
+        console.log('deu erro');
         return;
       }
       addToast({
@@ -82,8 +83,8 @@ const SignIn: React.FC = () => {
           </Form>
           <Link to="signup">
             <FiLogIn />
-          Criar Conta
-        </Link>
+            Criar Conta
+          </Link>
         </AnimationContainer>
       </Content>
       <Background />
