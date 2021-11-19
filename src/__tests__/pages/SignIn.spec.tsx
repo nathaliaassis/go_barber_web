@@ -31,7 +31,7 @@ jest.mock('../../hooks/ToastContext', () => {
   }
 });
 
-describe('SignIn Page', () => {
+describe('Page: SignIn', () => {
   beforeEach(() => {
     mockedHistoryPush.mockClear();
   });
@@ -86,8 +86,6 @@ describe('SignIn Page', () => {
   });
 
   it('should display an error toast if login fails', async () => {
-
-
     mockedSignIn.mockImplementation(() => {
       throw new Error();
     });
