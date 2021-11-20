@@ -38,7 +38,21 @@ describe('Hook: AuthContext', () => {
   });
 
   it('should restore storage data when user sign in', () => {
-    // const spyStorage = jest.spyOn(Storage.prototype, 'getItem');
+    jest.spyOn(Storage.prototype, 'getItem').mockImplementation(key => {
+      switch (key) {
+        case '@GoBarber:token':
+          return 'token-123';
+        case '@GoBarber:user':
+          return JSON.stringify(data.user);
+        default:
+          return null
+      }
+    });
 
+    const { result } = renderHook(() => useAuth(), {
+      wrapper: AuthProvider
+    });
+
+    expect(result.current.user.email).toEqual('user@mail.com');
   });
 });
