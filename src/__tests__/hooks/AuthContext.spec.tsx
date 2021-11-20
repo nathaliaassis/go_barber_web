@@ -1,5 +1,5 @@
 import MockAdapter from 'axios-mock-adapter';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks';
 import { AuthProvider, useAuth } from '../../hooks/AuthContext';
 import api from '../../services/api';
 
@@ -55,4 +55,51 @@ describe('Hook: AuthContext', () => {
 
     expect(result.current.user.email).toEqual('user@mail.com');
   });
+
+  it('should be able to sign out user', () => {
+    jest.spyOn(Storage.prototype, 'getItem').mockImplementation(key => {
+      switch (key) {
+        case '@GoBarber:token':
+          return 'token-123';
+        case '@GoBarber:user':
+          return JSON.stringify(data.user);
+        default:
+          return null
+      }
+    });
+
+    const removeItemSpy = jest.spyOn(Storage.prototype, 'removeItem')
+
+    const { result } = renderHook(() => useAuth(), {
+      wrapper: AuthProvider
+    });
+
+    act(() => {
+      result.current.signOut();
+    });
+
+    expect(removeItemSpy).toHaveBeenCalledTimes(2);
+    expect(result.current.user).toBeUndefined();
+  });
+
+  it('should be able to update user data', async () => {
+    const setItemSpy = jest.spyOn(Storage.prototype, 'setItem');
+
+    const { result } = renderHook(() => useAuth(), {
+      wrapper: AuthProvider
+    });
+
+    act(() => {
+      result.current.updateUser({ ...data.user, avatar_url: 'image-test.jpg' })
+    });
+
+    expect(setItemSpy).toHaveBeenCalledWith('@GoBarber:user',
+      JSON.stringify({
+        ...data.user,
+        avatar_url: 'image-test.jpg'
+      })
+    );
+
+    expect(result.current.user).toEqual({ ...data.user, avatar_url: 'image-test.jpg' });
+  })
 });
