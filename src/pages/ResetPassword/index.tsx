@@ -30,11 +30,9 @@ const ResetPassword: React.FC = () => {
 
   const formRef = useRef<FormHandles>(null);
 
-
   const handleSubmit = useCallback(async (data: ResetPasswordData) => {
     try {
       formRef.current?.setErrors({});
-
       //quando eu quero validar um objeto inteiro eu crio um schema de validação
       const schema = Yup.object().shape({
         password: Yup.string().required('Senha obrigatória'),
