@@ -36,4 +36,9 @@ describe('Hook: AuthContext', () => {
 
     expect(result.current.user.email).toEqual('user@mail.com');
   });
+
+  it('should restore storage data when user sign in', () => {
+    // const spyStorage = jest.spyOn(Storage.prototype, 'getItem');
+
+  });
 });
