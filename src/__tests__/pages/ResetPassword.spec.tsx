@@ -5,6 +5,7 @@ import api from '../../services/api';
 
 const mockedHistoryPush = jest.fn(); // a mesma coisa que () => {}
 const mockedAddToast = jest.fn(); // a mesma coisa que () => {}
+const mockedLocationSearch = '?token=token1234';
 
 jest.mock('react-router-dom', () => {
   return {
@@ -12,7 +13,7 @@ jest.mock('react-router-dom', () => {
       push: mockedHistoryPush
     }),
     useLocation: () => ({
-      search: '?token=token1234'
+      search: mockedLocationSearch,
     })
   }
 });
@@ -27,7 +28,7 @@ jest.mock('../../hooks/ToastContext', () => {
 
 describe('Page: ResetPassword', () => {
   beforeEach(() => {
-    mockedHistoryPush.mockClear();
+    jest.resetAllMocks();
   });
 
   it('should be able to reset user password', async () => {
@@ -127,6 +128,41 @@ describe('Page: ResetPassword', () => {
         })
       );
     });
+  });
 
+  it('should not reset password if token does not exist', async () => {
+    const search = require('react-router-dom');
+
+    search.useLocation = () => ({
+      search: '?token='
+    });
+
+    const { getByTestId, getByText } = render(<ResetPassword />);
+
+    const passwordField = getByTestId('new-password');
+    const passwordConfirmationField = getByTestId('new-password-confirmation');
+    const buttonElement = getByText('Alterar senha');
+
+    fireEvent.change(passwordField, {
+      target: {
+        value: '123456'
+      }
+    });
+
+    fireEvent.change(passwordConfirmationField, {
+      target: {
+        value: '123456'
+      }
+    });
+
+    fireEvent.click(buttonElement);
+
+    await waitFor(() => {
+      expect(mockedAddToast).toHaveBeenCalledWith(
+        expect.objectContaining({
+          type: 'error'
+        })
+      );
+    });
   });
 });
